@@ -12,16 +12,23 @@ Image dimensions are kept suitable for normal wiki layouts, while the actual dis
 
 In short: choose the image, upload it, and let the wiki handle the rest.
 
-## Important: configure before enabling
+## Installation and configuration
 
-The plugin intentionally ships with **no default ImageMagick path and no default working directory**. Configure both values before enabling it.
+The plugin intentionally ships with **no default ImageMagick path and no default working directory**.
 
-Add values to your DokuWiki local configuration, for example:
+After installing and enabling the plugin, open:
 
-```php
-$conf['plugin']['mediaautoscale']['convert'] = '/usr/bin/convert-im6';
-$conf['plugin']['mediaautoscale']['workdir'] = '/path/to/mediaautoscale-work';
-```
+**Admin -> Configuration Settings -> Mediaautoscale**
+
+and configure these two required settings before uploading images:
+
+- `convert` - absolute path to the ImageMagick `convert` executable;
+- `workdir` - absolute path to a writable directory used for ImageMagick output.
+
+For example:
+
+- `convert`: `/usr/bin/convert-im6`
+- `workdir`: `/path/to/mediaautoscale-work`
 
 Requirements for the working directory:
 
@@ -29,9 +36,16 @@ Requirements for the working directory:
 - it must be writable by the web-server user;
 - it must be on the **same filesystem as DokuWiki media storage**, because the normalized file is handed back to DokuWiki using `rename()`.
 
-The `convert` setting must be an absolute path to an executable ImageMagick `convert` binary. The initial implementation was tested with ImageMagick 6 (`/usr/bin/convert-im6`).
+The `convert` setting must point to an executable ImageMagick `convert` binary. The initial implementation was tested with ImageMagick 6 (`/usr/bin/convert-im6`).
 
-If the plugin is enabled without valid settings, supported image uploads are rejected with an explicit configuration error rather than being stored unprocessed.
+Alternatively, the settings can be added manually to DokuWiki's `conf/local.php`:
+
+```php
+$conf['plugin']['mediaautoscale']['convert'] = '/usr/bin/convert-im6';
+$conf['plugin']['mediaautoscale']['workdir'] = '/path/to/mediaautoscale-work';
+```
+
+On DokuWiki versions where disabled plugins are not shown in Configuration Settings, enable the plugin first and then configure it there. If the plugin is enabled without valid settings, supported image uploads are rejected with an explicit configuration error rather than being stored unprocessed.
 
 ## Default image policy
 
