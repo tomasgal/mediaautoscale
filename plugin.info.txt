@@ -1,0 +1,7 @@
+base   mediaautoscale
+author Tomas Gal
+email  
+date   2026-09-12
+name   Media Autoscale
+desc   Normalize oversized JPEG/PNG uploads before DokuWiki stores them
+url    https://github.com/tomasgal/mediaautoscale
